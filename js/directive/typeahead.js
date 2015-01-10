@@ -1,7 +1,3 @@
-/**
- * Created by Ariel Mashraki
- */
-
 function typeheadDirective() {
   return {
     restrict: 'E',
@@ -17,3 +13,4 @@ function typeheadDirective() {
       '</ul>'
   };
 }
+

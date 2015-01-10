@@ -43,6 +43,29 @@ angular.module('ui.comments.directive', []).provider('commentsConfig', function 
   this.$get = function () {
     return config;
   };
+  /**
+   * @ngdoc function
+   * @name ui.comments.commentsConfig#set
+   * @methodOf ui.comments.commentsConfig
+   * @function
+   *
+   * @description
+   *
+   * _When injected into a config block_, this method allows the manipulate the comments
+   * configuration.
+   *
+   * This method performs validation and only permits the setting of known properties, and
+   * will only set values of acceptable types. Further validation, such as detecting whether or
+   * not a controller is actually registered, is not performed.
+   *
+   * @param {string|object} name Either the name of the property to be accessed, or an object
+   *                             containing keys and values to extend the configuration with.
+   *
+   * @param {*} value The value to set the named key to. Its type depends on the
+   *                  property being set.
+   *
+   * @returns {undefined} Currently, this method is not chainable.
+   */
   this.set = function (name, value) {
     var fn, key, props, i;
     if (typeof name === 'string') {
@@ -80,6 +103,7 @@ angular.module('ui.comments.directive', []).provider('commentsConfig', function 
       link: {
         pre: function (scope, elem, attr, comment) {
           var self = elem.controller('comments'), parentCollection = comment ? comment.comments : null;
+          // Setup $commentsController
           if (parentCollection) {
             self.commentsDepth = parentCollection.commentsDepth + 1;
             self.commentsRoot = parentCollection.commentsRoot;
@@ -95,6 +119,7 @@ angular.module('ui.comments.directive', []).provider('commentsConfig', function 
               }
             }
             if (typeof depthLimit !== 'number' || depthLimit !== depthLimit) {
+              // Avoid NaN and non-numbers
               depthLimit = 0;
             }
             self.commentsDepthLimit = depthLimit;
@@ -150,12 +175,14 @@ angular.module('ui.comments.directive', []).provider('commentsConfig', function 
           elem.addClass('child-comment');
         }
         var children = false, compiled, sub = $compile('<div comments child-comments="true" ' + 'comment-data="comment.children"></div>'), transclude;
+        // Notify controller without bubbling
         function notify(scope, name, data) {
           if (!controllerInstance) {
             return;
           }
           var namedListeners = scope.$$listeners[name] || [], i, length, args = [data];
           for (i = 0, length = namedListeners.length; i < length; i++) {
+            // if listeners were deregistered, defragment the array
             if (!namedListeners[i]) {
               namedListeners.splice(i, 1);
               i--;
@@ -163,6 +190,7 @@ angular.module('ui.comments.directive', []).provider('commentsConfig', function 
               continue;
             }
             try {
+              //allow all listeners attached to the current scope to run
               namedListeners[i].apply(null, args);
             } catch (e) {
               $exceptionHandler(e);

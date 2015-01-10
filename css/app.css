@@ -265,7 +265,7 @@ iframe {
   cursor: default;
 }
 
-.commenter-container{
+.commenter-container {
   border-top: 1px solid #ddd;
 }
 
@@ -290,18 +290,18 @@ iframe {
   cursor: pointer;
 }
 
-.form-control.ng-invalid.ng-dirty{
-  border-color:red;
+.form-control.ng-invalid.ng-dirty {
+  border-color: red;
 }
 
-.avatar_img{
+.avatar_img {
   width: 25px;
   height: 25px;
   float: left;
   margin: 7px;
 }
 
-.nav > li > a:hover, .nav >li > a:focus {
+.nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
   background-color: rgba(173, 173, 173, 0.4)!important;
 }

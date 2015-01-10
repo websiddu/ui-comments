@@ -19,7 +19,7 @@ function commenterDirective($timeout, githubService) {
 
       attr.$observe('action', function(value) {
         action = scope.$eval(value);
-      });//wait for compilation ending. cuz we use templateUrl(async directive)
+      });
 
       scope.action = function(val) {
         action(val);
@@ -37,7 +37,6 @@ function commenterDirective($timeout, githubService) {
           }, 300)
         }
       });
-
-    }//end linkFn
-  }
+    }
+  };
 }

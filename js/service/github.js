@@ -1,6 +1,6 @@
-function githubService($http){
+function githubService($http) {
   var origin = 'http://api.github.com';
-  var fetchUsers = function(query){
+  var fetchUsers = function(query) {
     return $http({
       method: 'JSONP',
       url : origin + '/search/users?callback=JSON_CALLBACK',
@@ -12,3 +12,4 @@ function githubService($http){
     fetchUsers: fetchUsers
   };
 }
+
